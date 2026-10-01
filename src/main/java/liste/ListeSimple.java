@@ -155,8 +155,8 @@ public class ListeSimple {
                 precedentR2.setSuivant(r1);
             else
                 tete = r1;
-            r1.setSuivant(suivantR1);
-            r2.setSuivant(suivantR2);
+            r1.setSuivant(suivantR2);
+            r2.setSuivant(suivantR1);
         }
     }
 

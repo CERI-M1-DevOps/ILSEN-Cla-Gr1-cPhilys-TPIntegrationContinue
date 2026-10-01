@@ -247,6 +247,7 @@ public class ListeSimpleTest {
 
     @Test
     public void getPrecedentRetourneLeNoeudAttenduOuNull() {
+        assertNull(listeATester.getPrecedent(new Noeud(0, null)));
         listeATester.ajout(1);
         Noeud premier = listeATester.tete;
         listeATester.ajout(2);
@@ -256,6 +257,10 @@ public class ListeSimpleTest {
         assertSame(tete, listeATester.getPrecedent(premier));
         assertNull(listeATester.getPrecedent(new Noeud(3, null)));
         assertNull(listeATester.getPrecedent(null));
+
+        ListeSimple listeAvecUnSeulNoeud = new ListeSimple();
+        listeAvecUnSeulNoeud.ajout(1);
+        assertNull(listeAvecUnSeulNoeud.getPrecedent(new Noeud(2, null)));
     }
 
     @Test
@@ -344,6 +349,33 @@ public class ListeSimpleTest {
     }
 
     @Test
+    public void echangerNoeudsAdjacentsQuiNeSontPasEnTete() {
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud premier = listeATester.tete;
+        Noeud milieu = premier.getSuivant();
+        Noeud dernier = milieu.getSuivant();
+
+        listeATester.echanger(milieu, dernier);
+        assertEquals("ListeSimple(Noeud(1), Noeud(3), Noeud(2))", listeATester.toString());
+    }
+
+    @Test
+    public void echangerNoeudsAdjacentsAvecLaTeteDansLesDeuxSens() {
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud tete = listeATester.tete;
+        Noeud suivant = tete.getSuivant();
+
+        listeATester.echanger(suivant, tete);
+        assertEquals("ListeSimple(Noeud(2), Noeud(1))", listeATester.toString());
+
+        listeATester.echanger(listeATester.tete, listeATester.tete.getSuivant());
+        assertEquals("ListeSimple(Noeud(1), Noeud(2))", listeATester.toString());
+    }
+
+    @Test
     public void echangerMemeNoeudNeChangePasLaListe() {
         listeATester.ajout(1);
         Noeud noeud = listeATester.tete;
@@ -356,5 +388,7 @@ public class ListeSimpleTest {
         listeATester.ajout(1);
         assertThrows(IllegalArgumentException.class,
                 () -> listeATester.echanger(listeATester.tete, new Noeud(2, null)));
+        assertThrows(IllegalArgumentException.class,
+                () -> listeATester.echanger(new Noeud(2, null), listeATester.tete));
     }
 }
