@@ -44,6 +44,22 @@ public class ListeSimpleTest {
     }
 
     @Test
+    public void noeudExposeEtModifieSesProprietes() {
+        Noeud suivant = new Noeud(2, null);
+        Noeud noeud = new Noeud(1, suivant);
+
+        assertEquals(1, noeud.getElement());
+        assertSame(suivant, noeud.getSuivant());
+        assertEquals("Noeud(1)", noeud.toString());
+
+        noeud.setElement(null);
+        noeud.setSuivant(null);
+        assertNull(noeud.getElement());
+        assertNull(noeud.getSuivant());
+        assertEquals("Noeud(null)", noeud.toString());
+    }
+
+    @Test
     public void toStringDonneTousLesNoeuds() {
         System.out.println(listeATester);
         listeATester.ajout(1);
@@ -60,6 +76,32 @@ public class ListeSimpleTest {
         listeATester.modifiePremier(2, 4);
         assertEquals(listeATester.toString(), "ListeSimple(Noeud(3), Noeud(4), Noeud(1))");
         assertEquals(4, listeATester.tete.getSuivant().getElement());
+    }
+
+    @Test
+    public void modificationsIgnorentUneValeurAbsenteEtUneListeVide() {
+        listeATester.modifiePremier(1, 2);
+        listeATester.modifieTous(1, 2);
+        assertEquals("ListeSimple()", listeATester.toString());
+
+        listeATester.ajout(1);
+        listeATester.modifiePremier(2, 3);
+        listeATester.modifieTous(2, 3);
+        assertEquals("ListeSimple(Noeud(1))", listeATester.toString());
+    }
+
+    @Test
+    public void operationsUtilisentEgaliteDesValeurs() {
+        listeATester.ajout(1000);
+        listeATester.ajout(1000);
+
+        listeATester.modifiePremier(Integer.valueOf(1000), 4);
+        listeATester.modifieTous(Integer.valueOf(1000), 5);
+
+        assertEquals("ListeSimple(Noeud(4), Noeud(5))", listeATester.toString());
+        listeATester.supprimePremier(Integer.valueOf(4));
+        listeATester.supprimeTous(Integer.valueOf(5));
+        assertEquals(0, listeATester.getSize());
     }
 
     @Test
@@ -113,10 +155,26 @@ public class ListeSimpleTest {
     }
 
     @Test
+    public void supprimePremierIgnoreUneValeurAbsente() {
+        listeATester.ajout(1);
+        listeATester.supprimePremier(2);
+        assertEquals(1, listeATester.getSize());
+        assertEquals("ListeSimple(Noeud(1))", listeATester.toString());
+    }
+
+    @Test
     public void supprimeTousListeVide() {
-        listeATester.supprimePremier(1);
+        listeATester.supprimeTous(1);
         assertNull(listeATester.tete);
         assertEquals(0, listeATester.getSize());
+    }
+
+    @Test
+    public void supprimeTousNeModifiePasLaTailleSiValeurAbsente() {
+        listeATester.ajout(1);
+        listeATester.supprimeTous(2);
+        assertEquals(1, listeATester.getSize());
+        assertEquals("ListeSimple(Noeud(1))", listeATester.toString());
     }
 
     @Test
@@ -188,6 +246,19 @@ public class ListeSimpleTest {
     }
 
     @Test
+    public void getPrecedentRetourneLeNoeudAttenduOuNull() {
+        listeATester.ajout(1);
+        Noeud premier = listeATester.tete;
+        listeATester.ajout(2);
+        Noeud tete = listeATester.tete;
+
+        assertNull(listeATester.getPrecedent(tete));
+        assertSame(tete, listeATester.getPrecedent(premier));
+        assertNull(listeATester.getPrecedent(new Noeud(3, null)));
+        assertNull(listeATester.getPrecedent(null));
+    }
+
+    @Test
     public void inverserListeVide() {
         listeATester.inverser();
         assertNull(listeATester.tete);
@@ -254,5 +325,36 @@ public class ListeSimpleTest {
         listeATester.echanger(r1, r2);
         System.out.println(listeATester);
         assertEquals(listeATester.toString(), "ListeSimple(Noeud(4), Noeud(2), Noeud(3), Noeud(1), Noeud(5))");
+    }
+
+    @Test
+    public void echangerNoeudsAdjacentsDansLesDeuxSens() {
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud premier = listeATester.tete;
+        Noeud second = premier.getSuivant();
+        listeATester.echanger(premier, second);
+        assertEquals("ListeSimple(Noeud(2), Noeud(1), Noeud(3))", listeATester.toString());
+
+        Noeud milieu = listeATester.tete.getSuivant();
+        Noeud dernier = milieu.getSuivant();
+        listeATester.echanger(dernier, milieu);
+        assertEquals("ListeSimple(Noeud(2), Noeud(3), Noeud(1))", listeATester.toString());
+    }
+
+    @Test
+    public void echangerMemeNoeudNeChangePasLaListe() {
+        listeATester.ajout(1);
+        Noeud noeud = listeATester.tete;
+        listeATester.echanger(noeud, noeud);
+        assertSame(noeud, listeATester.tete);
+    }
+
+    @Test
+    public void echangerRefuseUnNoeudAbsent() {
+        listeATester.ajout(1);
+        assertThrows(IllegalArgumentException.class,
+                () -> listeATester.echanger(listeATester.tete, new Noeud(2, null)));
     }
 }
