@@ -310,3 +310,16 @@ docker run --name test_sha d2c94e258dcb
 **Constat :**  
 Le conteneur démarre et s'exécute de façon identique. Dans `docker ps -a`, le conteneur porte bien le nom défini `test_sha` et la colonne `IMAGE` référence l'identifiant court spécifié.  
 L'option `--name` permet d'attribuer un nom déterministe au lieu d'un nom aléatoire, ce qui facilite les scripts et la maintenance.
+
+### Informations globales sur le système
+
+Commande :
+```bash
+docker info
+```
+
+**Constat :**  
+La sortie synthétise l'état global du daemon :
+- `Containers: 3` (`Running: 0`, `Paused: 0`, `Stopped: 3`).
+- `Images: 1`.
+- Des détails d'infrastructure sont également listés : le pilote de stockage (`Storage Driver: overlay2`), le chemin racine `/var/lib/docker`, l'architecture et la version du noyau de l'hôte.
