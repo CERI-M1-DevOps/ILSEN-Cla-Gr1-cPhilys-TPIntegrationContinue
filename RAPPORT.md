@@ -339,3 +339,21 @@ docker rm $(docker ps -a -q)
 
 **Explication :**  
 La substitution de commande bash `$(...)` injecte la liste de tous les IDs produits par `docker ps -a -q` en arguments de `docker rm`. Tous les conteneurs arrêtés sont ainsi détruits d'un seul coup.
+
+### Suppression de l'image hello-world
+
+Commande :
+```bash
+docker rmi hello-world
+```
+
+**Constat :**  
+La suppression s'effectue sans aucune erreur :
+```text
+Untagged: hello-world:latest
+Untagged: hello-world@sha256:d2c94e258dcb3c5ac4040d3016186b7f36e6438547510f81da040dd2112f5e16
+Deleted: sha256:d2c94e258dcb3c5ac4040d3016186b7f36e6438547510f81da040dd2112f5e16
+```
+
+**Pourquoi :**  
+Comme l'ensemble des conteneurs a été purgé à l'étape précédente, aucune dépendance ne bloque plus la libération de l'image. Docker supprime le tag et efface les couches physiques du disque.
