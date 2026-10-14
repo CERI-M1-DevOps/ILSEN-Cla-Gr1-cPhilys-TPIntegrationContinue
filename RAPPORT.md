@@ -323,3 +323,19 @@ La sortie synthétise l'état global du daemon :
 - `Containers: 3` (`Running: 0`, `Paused: 0`, `Stopped: 3`).
 - `Images: 1`.
 - Des détails d'infrastructure sont également listés : le pilote de stockage (`Storage Driver: overlay2`), le chemin racine `/var/lib/docker`, l'architecture et la version du noyau de l'hôte.
+
+### Suppression globale des conteneurs en bash
+
+1. **Extraction exclusive des identifiants :**
+```bash
+docker ps -a -q
+```
+L'option `-q` (`--quiet`) n'affiche que la colonne des IDs des conteneurs.
+
+2. **Suppression de tous les conteneurs en une seule ligne :**
+```bash
+docker rm $(docker ps -a -q)
+```
+
+**Explication :**  
+La substitution de commande bash `$(...)` injecte la liste de tous les IDs produits par `docker ps -a -q` en arguments de `docker rm`. Tous les conteneurs arrêtés sont ainsi détruits d'un seul coup.
