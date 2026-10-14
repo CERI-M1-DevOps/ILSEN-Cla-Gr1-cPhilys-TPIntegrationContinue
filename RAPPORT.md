@@ -47,3 +47,15 @@ En revanche, `docker version` interroge le socket UNIX et fournit deux blocs dis
 - **Client :** version de la CLI, version de Go utilisée pour la compilation, commit Git et architecture (`linux/amd64`).
 - **Server (Engine) :** version du moteur Docker, version minimale de l'API supportée, containerd, runc et docker-init.
 Cela permet de vérifier à la fois le client et le bon fonctionnement du daemon.
+
+### Composants du daemon Docker en cours d'exécution
+
+Commande utilisée :
+```bash
+ps aux | grep -E 'dockerd|containerd'
+```
+
+**Explication :**  
+Docker s'appuie sur une architecture découplée :
+- `dockerd` : le daemon Docker principal. Il expose l'API Docker, gère les images, les volumes, le réseau et orchestre les requêtes de haut niveau.
+- `containerd` : le runtime de conteneurs de niveau inférieur. Il supervise le cycle de vie complet des conteneurs sur l'hôte (création, démarrage, arrêt, supervision des processus) en déléguant l'isolation bas niveau à `runc`.
