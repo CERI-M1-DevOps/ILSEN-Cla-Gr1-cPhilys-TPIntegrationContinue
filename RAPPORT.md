@@ -284,3 +284,18 @@ docker ps -a --no-trunc
 L'option `--no-trunc` force Docker à afficher les valeurs complètes sans les abréger :
 - Le `CONTAINER ID` et l'`IMAGE` sont affichés avec leurs 64 caractères SHA256 intégraux.
 - La commande exécutée dans le conteneur est également affichée sans troncature.
+
+### Suppression ciblée d'un conteneur par son nom
+
+1. Exécution d'un troisième conteneur :
+```bash
+docker run hello-world
+```
+2. Identification du nom généré avec `docker ps -a` (par exemple `kind_archimedes`).
+3. Suppression du conteneur en spécifiant ce nom :
+```bash
+docker rm kind_archimedes
+```
+
+**Constat :**  
+La commande affiche le nom du conteneur supprimé pour confirmation. Le conteneur n'apparaît plus dans `docker ps -a`.
