@@ -406,3 +406,24 @@ docker start -a hello1
 
 **Constat :**  
 L'option `-a` (`--attach`) connecte la sortie standard du conteneur à notre terminal. Les messages "Hello from Docker!" s'affichent alors directement dans la console lors du redémarrage de `hello2` puis de `hello1`.
+
+### Exécution en arrière-plan (-d), conteneur éphémère (--rm) et nettoyage
+
+1. **Exécution en tâche de fond (détaché) :**
+```bash
+docker run -d --name hello3 hello-world
+```
+**Constat :** Docker renvoie uniquement l'identifiant long du conteneur. Dans `docker ps -a`, `hello3` apparaît avec le statut `Exited (0)` car son binaire s'est arrêté aussitôt l'exécution finie.
+
+2. **Exécution avec auto-suppression :**
+```bash
+docker run --rm --name hello4 hello-world
+```
+**Constat :** Le message s'affiche sur la console, mais lorsqu'on vérifie avec `docker ps -a`, `hello4` n'apparaît nulle part. L'option `--rm` supprime automatiquement le conteneur et sa couche d'écriture dès qu'il passe à l'état arrêté.
+
+3. **Nettoyage final avant la suite :**
+```bash
+docker rm hello1 hello2 hello3
+docker rmi hello-world
+```
+Les conteneurs créés et l'image d'exercice `hello-world` sont supprimés proprement.
