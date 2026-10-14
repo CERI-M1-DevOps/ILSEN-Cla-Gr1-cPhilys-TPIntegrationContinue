@@ -299,3 +299,14 @@ docker rm kind_archimedes
 
 **Constat :**  
 La commande affiche le nom du conteneur supprimé pour confirmation. Le conteneur n'apparaît plus dans `docker ps -a`.
+
+### Lancement par SHA256 avec nommage explicite
+
+Commande :
+```bash
+docker run --name test_sha d2c94e258dcb
+```
+
+**Constat :**  
+Le conteneur démarre et s'exécute de façon identique. Dans `docker ps -a`, le conteneur porte bien le nom défini `test_sha` et la colonne `IMAGE` référence l'identifiant court spécifié.  
+L'option `--name` permet d'attribuer un nom déterministe au lieu d'un nom aléatoire, ce qui facilite les scripts et la maintenance.
