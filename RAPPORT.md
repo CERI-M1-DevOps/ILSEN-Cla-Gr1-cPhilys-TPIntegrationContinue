@@ -87,3 +87,22 @@ Le service `docker.service` est bien arrêté (`inactive/dead`), mais le socket 
 
 **Pourquoi :**  
 Systemd implémente le principe d'activation par socket (*socket activation*). Même quand le service Docker est stoppé, systemd conserve l'écoute sur `/var/run/docker.sock`. Si un utilisateur ou un script envoie une requête Docker sur ce socket, systemd réveille et relance automatiquement `docker.service`. Pour arrêter complètement Docker, il faut stopper le socket en premier : `sudo systemctl stop docker.socket`.
+
+### Désactiver et réactiver Docker au démarrage
+
+- **Pour désactiver le démarrage automatique au boot :**
+```bash
+sudo systemctl disable docker
+sudo systemctl disable docker.socket
+```
+
+- **Pour réactiver le démarrage automatique au boot :**
+```bash
+sudo systemctl enable docker
+sudo systemctl enable docker.socket
+```
+
+- **Pour démarrer ou redémarrer le service manuellement :**
+```bash
+sudo systemctl start docker
+```
