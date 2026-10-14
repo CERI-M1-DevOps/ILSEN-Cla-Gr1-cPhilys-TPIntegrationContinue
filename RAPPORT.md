@@ -272,3 +272,15 @@ docker ps -a
 **Observations :**  
 - **Statut :** La colonne `STATUS` indique `Exited (0) X minutes ago`. Le code de retour `(0)` signale une terminaison avec succès.
 - **Noms des conteneurs :** En l'absence de nom explicite lors du `run`, Docker attribue un nom aléatoire unique composé d'un adjectif et du nom d'un scientifique ou pionnier de l'informatique (par exemple `brave_curie`, `nifty_hopper`). Les deux conteneurs ont des noms différents.
+
+### Affichage non tronqué
+
+Commande :
+```bash
+docker ps -a --no-trunc
+```
+
+**Explication :**  
+L'option `--no-trunc` force Docker à afficher les valeurs complètes sans les abréger :
+- Le `CONTAINER ID` et l'`IMAGE` sont affichés avec leurs 64 caractères SHA256 intégraux.
+- La commande exécutée dans le conteneur est également affichée sans troncature.
