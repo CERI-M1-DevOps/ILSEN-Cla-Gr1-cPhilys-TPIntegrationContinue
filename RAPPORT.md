@@ -230,3 +230,14 @@ docker images
 
 **Explication :**  
 La commande affiche les images présentes sur l'hôte. Pour l'image `hello-world` avec le tag `latest`, l'identifiant court (`IMAGE ID`) est composé des 12 premiers caractères du SHA256 (par exemple `d2c94e258dcb`).
+
+### Seconde exécution du conteneur
+
+Commande :
+```bash
+docker run hello-world
+```
+
+**Comparaison et explication :**  
+- Contrairement au premier lancement, la ligne "Unable to find image... locally" n'apparaît plus. Le démarrage est instantané car l'image est déjà disponible dans le cache local.
+- Toutefois, `docker run` instancie un **nouveau conteneur distinct** du précédent (avec un nouvel ID et un nouveau nom généré).
