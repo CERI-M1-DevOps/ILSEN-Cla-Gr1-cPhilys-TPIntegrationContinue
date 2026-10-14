@@ -220,3 +220,13 @@ docker ps
 - **Nombre de conteneurs en exécution :** **0 conteneur**.
 - **Pourquoi :** Le binaire de `hello-world` affiche son message puis se termine immédiatement. Un conteneur Docker ne reste actif que tant que son processus principal (PID 1) tourne.
 - **Alias utilisé :** `docker ps` est l'alias historique de la commande `docker container ls`. Par défaut, quand aucun objet n'est spécifié, Docker applique les commandes aux conteneurs.
+
+### Liste des images locales
+
+Commande :
+```bash
+docker images
+```
+
+**Explication :**  
+La commande affiche les images présentes sur l'hôte. Pour l'image `hello-world` avec le tag `latest`, l'identifiant court (`IMAGE ID`) est composé des 12 premiers caractères du SHA256 (par exemple `d2c94e258dcb`).
