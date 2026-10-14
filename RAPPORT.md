@@ -163,3 +163,13 @@ sudo ls -la /var/lib/docker/containers/
 
 **Constat :**  
 Le répertoire ne contient aucun sous-dossier de conteneur. Il y a actuellement **0 conteneur** stocké sur la machine.
+
+### Recherche d'images sur Docker Hub
+
+Commande :
+```bash
+docker search hello-world
+```
+
+**Explication :**  
+La commande consulte le registre public Docker Hub et retourne la liste des dépôts correspondants. L'image officielle `hello-world` est classée en tête de liste : elle totalise le plus grand nombre d'étoiles (`STARS`) et dispose de la mention `[OK]` sous la colonne `OFFICIAL`.
