@@ -134,3 +134,22 @@ docker version
 La commande retourne désormais les informations complètes Client et Server sans erreur de permission.  
 **Pourquoi :**  
 Le socket UNIX `/var/run/docker.sock` appartient au groupe `docker` avec des droits `rw-rw----`. En devenant membre de ce groupe, `dockeruser` peut lire et écrire sur le socket sans devoir élever ses privilèges avec `sudo`.
+
+---
+
+## Partie 3 – Premières manipulations de conteneurs et d’images
+
+### Répertoire de stockage des objets Docker et catégories
+
+Docker stocke l'ensemble de ses données internes dans le répertoire :
+```bash
+/var/lib/docker/
+```
+
+Les différentes catégories d'objets stockés dans cette arborescence sont :
+- `containers/` : métadonnées, configurations JSON et logs des conteneurs.
+- `image/` : métadonnées des images, descripteurs et base de données des layers (`imagedb`).
+- `overlay2/` : couches de stockage effectives du système de fichiers unionfs.
+- `volumes/` : données des volumes persistants créés par Docker.
+- `network/` : base de données locale des configurations réseau (bridges, endpoints).
+- `buildkit/` : cache de compilation pour Docker BuildKit.
