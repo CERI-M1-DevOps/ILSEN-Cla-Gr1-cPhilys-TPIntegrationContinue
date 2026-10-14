@@ -378,3 +378,20 @@ docker images
 L'identifiant (`IMAGE ID` : `d2c94e258dcb`) est rigoureusement identique au tout premier téléchargement.  
 **Pourquoi :**  
 Docker repose sur un adressage par le contenu (*content-addressable storage*). L'identifiant est le hash SHA256 de la configuration et des couches. Le contenu distant n'ayant pas changé, le hash calculé localement reste invariant.
+
+### Création sans démarrage (hello2) et démarrage simple
+
+1. **Création d'un conteneur sans le lancer :**
+```bash
+docker create --name hello2 hello-world
+docker ps -a
+```
+**Constat :** Le conteneur apparaît dans la liste avec le statut `Created`. Docker a réservé son nom, instancié sa couche d'écriture et enregistré sa configuration, mais n'a pas encore démarré son processus.
+
+2. **Démarrage du conteneur :**
+```bash
+docker start hello2
+```
+**Affichage :** Seul le nom `hello2` est affiché dans le terminal. Le texte "Hello from Docker!" n'apparaît pas à l'écran.  
+**Statut constaté :** Dans `docker ps -a`, le statut est passé à `Exited (0)`.  
+**Pourquoi :** La commande `docker start` lance par défaut le conteneur en arrière-plan (mode détaché) sans connecter ses flux stdout/stderr au terminal courant.
