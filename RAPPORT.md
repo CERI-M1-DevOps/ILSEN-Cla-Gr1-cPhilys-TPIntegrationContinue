@@ -106,3 +106,31 @@ sudo systemctl enable docker.socket
 ```bash
 sudo systemctl start docker
 ```
+
+### Configuration de l'utilisateur dockeruser sans sudo
+
+Étapes effectuées :
+1. Création du groupe `docker` :
+```bash
+sudo groupadd docker
+```
+2. Ajout de l'utilisateur `dockeruser` au groupe `docker` :
+```bash
+sudo usermod -aG docker dockeruser
+```
+*(L'option `-aG` permet d'ajouter le groupe secondaire sans perdre les appartenances existantes).*
+
+3. Redémarrage de la machine virtuelle pour recharger les groupes de session :
+```bash
+sudo reboot
+```
+
+4. Test de la commande sans passer par `sudo` :
+```bash
+docker version
+```
+
+**Constat :**  
+La commande retourne désormais les informations complètes Client et Server sans erreur de permission.  
+**Pourquoi :**  
+Le socket UNIX `/var/run/docker.sock` appartient au groupe `docker` avec des droits `rw-rw----`. En devenant membre de ce groupe, `dockeruser` peut lire et écrire sur le socket sans devoir élever ses privilèges avec `sudo`.
