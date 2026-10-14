@@ -209,3 +209,14 @@ docker inspect hello-world --format '{{.Id}}'
 ```
 L'identifiant complet SHA256 de l'image est :  
 `sha256:d2c94e258dcb3c5ac4040d3016186b7f36e6438547510f81da040dd2112f5e16`
+
+### Liste des conteneurs en cours d'exécution
+
+Commande :
+```bash
+docker ps
+```
+
+- **Nombre de conteneurs en exécution :** **0 conteneur**.
+- **Pourquoi :** Le binaire de `hello-world` affiche son message puis se termine immédiatement. Un conteneur Docker ne reste actif que tant que son processus principal (PID 1) tourne.
+- **Alias utilisé :** `docker ps` est l'alias historique de la commande `docker container ls`. Par défaut, quand aucun objet n'est spécifié, Docker applique les commandes aux conteneurs.
