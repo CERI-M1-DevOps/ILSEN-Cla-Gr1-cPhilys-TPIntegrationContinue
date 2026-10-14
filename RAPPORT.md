@@ -247,3 +247,17 @@ docker run hello-world
 - **Conteneurs en cours d'exécution :** **0** (vérifiable avec `docker ps`).
 - **Conteneurs stockés localement :** **2** (vérifiable avec `docker ps -a` ou en comptant les dossiers dans `/var/lib/docker/containers/`).  
 Chaque commande `docker run` a créé une instance distincte qui est restée stockée à l'état arrêté.
+
+### Tentative de suppression de l'image
+
+Commande :
+```bash
+docker rmi hello-world
+```
+
+**Constat :**  
+Docker refuse de supprimer l'image et lève une erreur de conflit :
+`Error response from daemon: conflict: unable to remove repository reference "hello-world" (must force) - container <ID> is using its referenced image <ID>`
+
+**Pourquoi :**  
+Docker garantit l'intégrité de ses conteneurs : même arrêté, un conteneur dépend de la couche en lecture seule de l'image qui a servi à le créer. Sans l'option de force (`-f`), il est impératif de supprimer d'abord les conteneurs dépendants avant de pouvoir supprimer l'image.
