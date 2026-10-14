@@ -73,3 +73,17 @@ ls -l /var/run/docker.sock
 - **Service :** `docker.service` (ainsi que `containerd.service`).
 - **Socket :** `docker.socket`, qui gère l'écoute sur le socket UNIX local `/var/run/docker.sock`.
 - **Utilisateur :** Ces services sont démarrés par l'utilisateur `root` (UID 0). Ces privilèges administrateur sont indispensables pour configurer les namespaces Linux, les groupes de contrôle (cgroups) et les règles iptables/nftables du noyau.
+
+### Arrêt de Docker et statut du socket
+
+Commande pour arrêter le service :
+```bash
+sudo systemctl stop docker
+systemctl status docker.socket
+```
+
+**Constat :**  
+Le service `docker.service` est bien arrêté (`inactive/dead`), mais le socket `docker.socket` reste à l'état `active (listening)`.
+
+**Pourquoi :**  
+Systemd implémente le principe d'activation par socket (*socket activation*). Même quand le service Docker est stoppé, systemd conserve l'écoute sur `/var/run/docker.sock`. Si un utilisateur ou un script envoie une requête Docker sur ce socket, systemd réveille et relance automatiquement `docker.service`. Pour arrêter complètement Docker, il faut stopper le socket en premier : `sudo systemctl stop docker.socket`.
