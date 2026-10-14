@@ -188,3 +188,24 @@ docker run hello-world
 4. Docker crée un conteneur à partir de cette image et démarre son binaire principal.
 5. Le programme s'exécute et affiche dans le terminal le message de bienvenue "Hello from Docker!".
 6. Le binaire termine son exécution (`exit 0`), provoquant l'arrêt immédiat du conteneur.
+
+### Inspection du stockage et SHA256 de l'image
+
+1. **Vérification du répertoire des conteneurs :**
+```bash
+sudo ls -l /var/lib/docker/containers/
+```
+**Constat :** Il y a désormais **1 conteneur** (un sous-dossier portant l'identifiant long de 64 caractères du conteneur). Même si le conteneur a fini son exécution, Docker le conserve sur disque avec ses métadonnées et ses logs.
+
+2. **Vérification du répertoire des images :**
+```bash
+sudo ls -l /var/lib/docker/image/overlay2/imagedb/content/sha256/
+```
+**Constat :** Un fichier JSON est présent, correspondant à l'image `hello-world` enregistrée.
+
+3. **SHA256 de l'image :**
+```bash
+docker inspect hello-world --format '{{.Id}}'
+```
+L'identifiant complet SHA256 de l'image est :  
+`sha256:d2c94e258dcb3c5ac4040d3016186b7f36e6438547510f81da040dd2112f5e16`
