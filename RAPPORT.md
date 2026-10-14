@@ -33,3 +33,17 @@ sudo apt-get update
 ```bash
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
+
+### Affichage de la version (client et serveur)
+
+Commande exécutée :
+```bash
+sudo docker version
+```
+
+**Explication :**  
+La commande simple `docker --version` ne retourne qu'une seule ligne d'information sur la CLI locale.  
+En revanche, `docker version` interroge le socket UNIX et fournit deux blocs distincts :
+- **Client :** version de la CLI, version de Go utilisée pour la compilation, commit Git et architecture (`linux/amd64`).
+- **Server (Engine) :** version du moteur Docker, version minimale de l'API supportée, containerd, runc et docker-init.
+Cela permet de vérifier à la fois le client et le bon fonctionnement du daemon.
