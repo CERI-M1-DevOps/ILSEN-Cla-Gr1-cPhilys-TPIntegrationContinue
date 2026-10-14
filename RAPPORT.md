@@ -59,3 +59,17 @@ ps aux | grep -E 'dockerd|containerd'
 Docker s'appuie sur une architecture découplée :
 - `dockerd` : le daemon Docker principal. Il expose l'API Docker, gère les images, les volumes, le réseau et orchestre les requêtes de haut niveau.
 - `containerd` : le runtime de conteneurs de niveau inférieur. Il supervise le cycle de vie complet des conteneurs sur l'hôte (création, démarrage, arrêt, supervision des processus) en déléguant l'isolation bas niveau à `runc`.
+
+### Services et sockets utilisés par Docker
+
+Commandes utilisées :
+```bash
+systemctl list-units --type=service | grep docker
+systemctl list-units --type=socket | grep docker
+ls -l /var/run/docker.sock
+```
+
+**Explication :**  
+- **Service :** `docker.service` (ainsi que `containerd.service`).
+- **Socket :** `docker.socket`, qui gère l'écoute sur le socket UNIX local `/var/run/docker.sock`.
+- **Utilisateur :** Ces services sont démarrés par l'utilisateur `root` (UID 0). Ces privilèges administrateur sont indispensables pour configurer les namespaces Linux, les groupes de contrôle (cgroups) et les règles iptables/nftables du noyau.
