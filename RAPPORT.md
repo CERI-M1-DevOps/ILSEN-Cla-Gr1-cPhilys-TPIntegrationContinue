@@ -153,3 +153,13 @@ Les différentes catégories d'objets stockés dans cette arborescence sont :
 - `volumes/` : données des volumes persistants créés par Docker.
 - `network/` : base de données locale des configurations réseau (bridges, endpoints).
 - `buildkit/` : cache de compilation pour Docker BuildKit.
+
+### Contenu initial du répertoire des conteneurs
+
+Commande :
+```bash
+sudo ls -la /var/lib/docker/containers/
+```
+
+**Constat :**  
+Le répertoire ne contient aucun sous-dossier de conteneur. Il y a actuellement **0 conteneur** stocké sur la machine.
