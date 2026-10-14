@@ -173,3 +173,18 @@ docker search hello-world
 
 **Explication :**  
 La commande consulte le registre public Docker Hub et retourne la liste des dépôts correspondants. L'image officielle `hello-world` est classée en tête de liste : elle totalise le plus grand nombre d'étoiles (`STARS`) et dispose de la mention `[OK]` sous la colonne `OFFICIAL`.
+
+### Exécution de l'image hello-world
+
+Commande :
+```bash
+docker run hello-world
+```
+
+**Étapes constatées lors de l'exécution :**
+1. `Unable to find image 'hello-world:latest' locally` : Docker vérifie d'abord si l'image est déjà disponible dans son cache local.
+2. `latest: Pulling from library/hello-world` : Comme l'image est introuvable localement, Docker contacte Docker Hub pour la télécharger.
+3. `Digest: sha256:...` et `Status: Downloaded newer image for hello-world:latest` : Les couches de l'image sont téléchargées, vérifiées par leur empreinte SHA256 et enregistrées.
+4. Docker crée un conteneur à partir de cette image et démarre son binaire principal.
+5. Le programme s'exécute et affiche dans le terminal le message de bienvenue "Hello from Docker!".
+6. Le binaire termine son exécution (`exit 0`), provoquant l'arrêt immédiat du conteneur.
