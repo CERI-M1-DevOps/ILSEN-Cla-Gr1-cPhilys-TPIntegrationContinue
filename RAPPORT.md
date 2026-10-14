@@ -357,3 +357,24 @@ Deleted: sha256:d2c94e258dcb3c5ac4040d3016186b7f36e6438547510f81da040dd2112f5e16
 
 **Pourquoi :**  
 Comme l'ensemble des conteneurs a été purgé à l'étape précédente, aucune dépendance ne bloque plus la libération de l'image. Docker supprime le tag et efface les couches physiques du disque.
+
+### Exécution de hello1 et vérification de l'identifiant
+
+Commande :
+```bash
+docker run --name hello1 hello-world
+```
+
+**Constat :**  
+- L'image n'étant plus présente dans le cache local, Docker affiche de nouveau `Unable to find image 'hello-world:latest' locally` et la retélécharge depuis Docker Hub.
+- Le nouveau conteneur est créé sous le nom `hello1`.
+
+Vérification de l'identifiant de l'image retéléchargée :
+```bash
+docker images
+```
+
+**Constat :**  
+L'identifiant (`IMAGE ID` : `d2c94e258dcb`) est rigoureusement identique au tout premier téléchargement.  
+**Pourquoi :**  
+Docker repose sur un adressage par le contenu (*content-addressable storage*). L'identifiant est le hash SHA256 de la configuration et des couches. Le contenu distant n'ayant pas changé, le hash calculé localement reste invariant.
