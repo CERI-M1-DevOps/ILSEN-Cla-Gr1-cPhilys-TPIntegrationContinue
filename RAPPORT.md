@@ -241,3 +241,9 @@ docker run hello-world
 **Comparaison et explication :**  
 - Contrairement au premier lancement, la ligne "Unable to find image... locally" n'apparaît plus. Le démarrage est instantané car l'image est déjà disponible dans le cache local.
 - Toutefois, `docker run` instancie un **nouveau conteneur distinct** du précédent (avec un nouvel ID et un nouveau nom généré).
+
+### Nombre de conteneurs actifs vs stockés
+
+- **Conteneurs en cours d'exécution :** **0** (vérifiable avec `docker ps`).
+- **Conteneurs stockés localement :** **2** (vérifiable avec `docker ps -a` ou en comptant les dossiers dans `/var/lib/docker/containers/`).  
+Chaque commande `docker run` a créé une instance distincte qui est restée stockée à l'état arrêté.
