@@ -395,3 +395,14 @@ docker start hello2
 **Affichage :** Seul le nom `hello2` est affiché dans le terminal. Le texte "Hello from Docker!" n'apparaît pas à l'écran.  
 **Statut constaté :** Dans `docker ps -a`, le statut est passé à `Exited (0)`.  
 **Pourquoi :** La commande `docker start` lance par défaut le conteneur en arrière-plan (mode détaché) sans connecter ses flux stdout/stderr au terminal courant.
+
+### Démarrage avec attachement des flux (start -a)
+
+Commandes :
+```bash
+docker start -a hello2
+docker start -a hello1
+```
+
+**Constat :**  
+L'option `-a` (`--attach`) connecte la sortie standard du conteneur à notre terminal. Les messages "Hello from Docker!" s'affichent alors directement dans la console lors du redémarrage de `hello2` puis de `hello1`.
