@@ -663,3 +663,21 @@ ps u -p 45123
 On retrouve le processus `/bin/bash` exécuté sur la machine hôte.  
 **Pourquoi :**  
 Un conteneur n'est pas une machine virtuelle : il ne virtualise aucun matériel et ne possède pas son propre noyau. Il s'agit d'un simple processus Linux standard de l'hôte, isolé dans ses propres namespaces (PID, réseau, montage) et restreint par les cgroups. Vu depuis l'intérieur du conteneur, ce bash porte le PID 1, mais vu depuis la machine hôte, il porte un PID ordinaire.
+
+### Sortie du conteneur sans arrêt (Ctrl-p Ctrl-q)
+
+1. Dans le conteneur (terminal 1) :
+```bash
+cd /home
+```
+Puis saisie de la séquence d'échappement : `Ctrl-p` suivi de `Ctrl-q`.
+
+2. Vérification du statut depuis le terminal hôte :
+```bash
+docker ps
+```
+
+**Constat :**  
+Le statut reste `Up`. Le conteneur continue de tourner.  
+**Pourquoi :**  
+La séquence `Ctrl-p Ctrl-q` détache le terminal du conteneur sans envoyer de signal d'arrêt (SIGHUP ou SIGTERM) et sans clore le flux d'entrée. Le processus `bash` (PID 1) reste donc actif en tâche de fond.
