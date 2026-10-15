@@ -451,3 +451,9 @@ Les différentes versions proposées sont identifiées par des **tags** :
 - Noms de code de distribution : `noble`, `jammy`, `focal`.
 - Révisions datées précises pour la reproductibilité : `noble-20240904`.
 - Variantes spécifiques : `rolling` (dernière version intermédiaire publiée) ou `devel` (version en cours de développement).
+
+### Version la plus récente vs version latest
+
+- **Version la plus récente :** Ubuntu publie des versions tous les 6 mois (ex. `ubuntu:rolling` qui correspond à la dernière version semestrielle non-LTS avec 9 mois de support).
+- **Version `latest` :** Docker fait pointer le tag `latest` vers la dernière version **LTS** (Long Term Support) stabilisée, actuellement Ubuntu 24.04 LTS (`noble`), recommandée en production.
+- **Identifiants respectifs :** `ubuntu:latest` et `ubuntu:noble` partagent exactement le même digest SHA256 et le même Image ID, tandis que `ubuntu:rolling` pointe vers une image distincte avec son propre condensat SHA256.
