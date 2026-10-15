@@ -743,3 +743,23 @@ La commande affiche l'ensemble des processus s'exécutant dans le conteneur, en 
 
 Sortie et arrêt du conteneur :
 On retourne dans le premier terminal et on quitte le shell principal avec `exit`.
+
+### Exécution de commandes personnalisées
+
+1. **Conteneur `ll` avec la commande `ls -l` :**
+```bash
+docker run --name ll ubuntu ls -l
+```
+Le conteneur liste la racine et s'arrête. Pour réobtenir le même affichage ultérieurement :
+```bash
+docker start -a ll
+```
+
+2. **Conteneur `salut` avec `echo Bonjour` :**
+```bash
+docker run --name salut ubuntu echo Bonjour
+```
+Affiche "Bonjour" puis s'arrête. Pour le relancer :
+```bash
+docker start -a salut
+```
