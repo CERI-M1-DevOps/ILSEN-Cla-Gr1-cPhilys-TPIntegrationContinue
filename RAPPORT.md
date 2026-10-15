@@ -427,3 +427,17 @@ docker rm hello1 hello2 hello3
 docker rmi hello-world
 ```
 Les conteneurs créés et l'image d'exercice `hello-world` sont supprimés proprement.
+
+---
+
+## Partie 4 – DockerHub
+
+### Types d'images et classification sur le registre public
+
+Sur Docker Hub (https://hub.docker.com/), on trouve plusieurs catégories d'images :
+- **Docker Official Images :** images de référence maintenues et validées par les équipes Docker et les éditeurs amont (ex. `ubuntu`, `python`, `nginx`). Elles offrent des garanties de sécurité et des Dockerfiles optimisés.
+- **Verified Publisher :** images publiées par des éditeurs tiers officiellement reconnus par Docker (ex. Canonical, Red Hat).
+- **Docker Sponsored Open Source :** projets open source vérifiés et sponsorisés par Docker.
+- **Community Images :** images publiques déposées par n'importe quel utilisateur ou organisation (sous la forme `utilisateur/depot`).
+
+La classification s'effectue via des filtres par catégorie (systèmes d'exploitation, bases de données, outils devops), par architecture matérielle (`amd64`, `arm64`), par niveau de confiance (badges officiel / vérifié) et par tags de version.
