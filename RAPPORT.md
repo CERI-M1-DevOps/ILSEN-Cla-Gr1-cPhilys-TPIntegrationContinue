@@ -617,3 +617,16 @@ docker ps -a
 Le conteneur est désormais à l'état `Exited (0)`.  
 **Pourquoi :**  
 Le processus PID 1 était le shell `bash`. Lorsqu'on le quitte avec `exit`, le processus racine se termine, ce qui provoque immédiatement l'arrêt complet du conteneur.
+
+### Redémarrage en interactif et répertoire de travail
+
+Commande :
+```bash
+docker start -i os_ubuntu
+pwd
+```
+
+**Constat :**  
+Le répertoire courant est `/` (la racine) et non `/home`.  
+**Pourquoi :**  
+Chaque démarrage du conteneur instancie un nouveau processus `bash` à partir de la configuration de l'image, qui définit le répertoire de travail initial (`WORKDIR /`). L'état volatile du shell précédent (`cd /home`) n'est pas sauvegardé dans le processus.
