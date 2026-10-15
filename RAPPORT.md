@@ -835,3 +835,15 @@ Chaque ligne est un objet JSON structuré comprenant :
 - `"log"` : le contenu du message émis.
 - `"stream"` : le canal de sortie (`stdout` ou `stderr`).
 - `"time"` : l'horodatage UTC précis de l'émission du log.
+
+### Nettoyage des conteneurs
+
+1. **Suppression de tous les conteneurs arrêtés :**
+```bash
+docker container prune -f
+```
+
+2. **Arrêter et supprimer tous les conteneurs actifs en une seule commande :**
+```bash
+docker rm -f $(docker ps -aq)
+```
