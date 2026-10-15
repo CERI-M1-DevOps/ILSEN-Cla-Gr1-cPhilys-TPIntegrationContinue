@@ -881,3 +881,14 @@ docker pull python:3.14.0a1
 Pour plusieurs couches, Docker n'effectue aucun téléchargement et indique `Already exists`. Seules les couches supérieures sont téléchargées.  
 **Pourquoi :**  
 Les deux images `python:3.9` et `python:3.14.0a1` sont basées sur le même système d'exploitation sous-jacent (Debian Bookworm). Docker mutualise les couches communes déjà présentes dans son stockage local, ce qui réduit le temps de transfert et l'espace disque consommé.
+
+### Comparaison des couches avec jq
+
+Commandes :
+```bash
+docker inspect python:3.9 | jq '.[0].RootFS.Layers'
+docker inspect python:3.14.0a1 | jq '.[0].RootFS.Layers'
+```
+
+**Constat :**  
+Les premiers hash SHA256 des listes `RootFS.Layers` sont strictement identiques entre les deux images. Cela confirme techniquement le partage effectif des couches de base Debian sur le système de fichiers hôte.
