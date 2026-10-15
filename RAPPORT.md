@@ -730,3 +730,16 @@ docker exec -it os_ubuntu bash
 ps -ef | grep bash
 ```
 **Constat :** Il y a **2 processus bash** qui tournent simultanément dans le conteneur : le premier PID 1 initial, et le nouveau lancé par `docker exec`.
+
+### Affichage des processus du conteneur avec docker top
+
+Depuis l'hôte :
+```bash
+docker top os_ubuntu
+```
+
+**Constat :**  
+La commande affiche l'ensemble des processus s'exécutant dans le conteneur, en indiquant leurs PIDs vus de la machine hôte, leurs utilisateurs et leurs commandes respectives.
+
+Sortie et arrêt du conteneur :
+On retourne dans le premier terminal et on quitte le shell principal avec `exit`.
