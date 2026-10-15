@@ -527,3 +527,17 @@ docker inspect ubuntu --format '{{.Config.Cmd}}'
 
 **Résultat :** `[bash]` (ou `[/bin/bash]`).  
 L'image Ubuntu est configurée pour exécuter le shell bash par défaut lors du démarrage d'un conteneur si aucune commande n'est passée en argument.
+
+---
+
+## Partie 5 – Interagir avec un conteneur
+
+### Préparation et rappel sur Ctrl-D
+
+1. **Suppression de l'image `ubuntu:rolling` :**
+```bash
+docker rmi ubuntu:rolling
+```
+
+2. **Test du raccourci `Ctrl-D` sur le terminal hôte :**
+La frappe de `Ctrl-D` transmet le caractère spécial EOF (End Of File) sur l'entrée standard du terminal. Le shell Unix détecte la fin des entrées utilisateur et met fin à la session en se déconnectant.
