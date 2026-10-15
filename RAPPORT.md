@@ -783,3 +783,30 @@ Pour le supprimer, comme il tourne en continu, `docker rm conteneur_infini` éch
 docker rm -f conteneur_infini
 ```
 L'option `-f` envoie un signal SIGKILL au processus avant d'effacer le conteneur.
+
+### Partage des flux d'E/S et code de sortie personnalisé
+
+1. **Boucle d'affichage dans le premier terminal :**
+```bash
+docker start -i os_ubuntu
+while true ; do echo "salut" ; sleep 3 ; done
+```
+
+2. **Attachement depuis le second terminal :**
+```bash
+docker attach os_ubuntu
+```
+**Constat :**  
+Le second terminal s'attache exactement au même flux de sortie : les "salut" défilent sur les deux terminaux simultanément.  
+Si l'on envoie un `Ctrl-C` dans l'un des terminaux, le signal interrompt la boucle dans les deux fenêtres.
+
+3. **Sortie avec un code retour personnalisé :**
+```bash
+exit 42
+```
+Vérification du statut :
+```bash
+docker ps -a
+```
+**Constat :**  
+La colonne `STATUS` indique `Exited (42)`. Docker stocke et préserve fidèlement le code d'erreur retourné par le processus.
