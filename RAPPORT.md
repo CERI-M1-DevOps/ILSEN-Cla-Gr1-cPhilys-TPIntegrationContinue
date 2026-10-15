@@ -467,3 +467,8 @@ Docker Hub intègre l'analyseur de sécurité Docker Scout pour inspecter les im
   - **High (Élevée) :** risque sérieux nécessitant un correctif rapide.
   - **Medium (Moyenne) :** impact modéré ou conditions d'exploitation spécifiques.
   - **Low (Faible) :** impact minime ou théorique.
+
+### Comparaison des tags latest et noble
+
+- **Constat :** Les tags `latest` et `noble` pointent sur le même condensat d'image.
+- **Intérêt :** En pratique DevOps, il est déconseillé d'utiliser le tag mutable `latest` dans les Dockerfiles de production. Référencer explicitement `ubuntu:noble` (ou `ubuntu:24.04`) garantit que les déploiements futurs resteront sur la version 24.04, évitant les régressions le jour où `latest` basculera vers la version LTS suivante (26.04).
