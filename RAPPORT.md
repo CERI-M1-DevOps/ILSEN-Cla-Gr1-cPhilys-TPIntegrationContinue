@@ -763,3 +763,23 @@ Affiche "Bonjour" puis s'arrête. Pour le relancer :
 ```bash
 docker start -a salut
 ```
+
+### Conteneur éphémère et commande infinie
+
+1. **Conteneur éphémère avec `ps aux` :**
+```bash
+docker run --rm --name ps ubuntu ps aux
+```
+**Constat :**
+- Le binaire `ps aux` a le PID 1 dans le conteneur.
+- Dès l'affichage terminé, le conteneur est automatiquement détruit (`--rm`) et n'apparaît plus dans `docker ps -a`.
+
+2. **Conteneur avec boucle infinie :**
+```bash
+docker run -d --name conteneur_infini ubuntu sh -c "while true ; sleep 3600 ; done"
+```
+Pour le supprimer, comme il tourne en continu, `docker rm conteneur_infini` échoue. On force la suppression avec :
+```bash
+docker rm -f conteneur_infini
+```
+L'option `-f` envoie un signal SIGKILL au processus avant d'effacer le conteneur.
