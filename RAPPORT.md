@@ -492,3 +492,13 @@ Ce répertoire constitue la base de données locale des métadonnées des couche
 - `diff` : identifiant du delta de la couche.
 - `size` : taille de la couche en octets.
 - `tar-split` : métadonnées pour reconstruire l'archive tar d'origine.
+
+### Téléchargement de l'image ubuntu par défaut
+
+Commande :
+```bash
+docker pull ubuntu
+```
+
+**Constat :**  
+Docker applique automatiquement le tag par défaut `:latest`. La commande télécharge donc `ubuntu:latest` (qui correspond à la version LTS Ubuntu 24.04).
