@@ -541,3 +541,27 @@ docker rmi ubuntu:rolling
 
 2. **Test du raccourci `Ctrl-D` sur le terminal hôte :**
 La frappe de `Ctrl-D` transmet le caractère spécial EOF (End Of File) sur l'entrée standard du terminal. Le shell Unix détecte la fin des entrées utilisateur et met fin à la session en se déconnectant.
+
+### Lancement sans option d'un conteneur ubuntu
+
+1. **Lancement du conteneur :**
+```bash
+docker run ubuntu
+docker ps -a
+```
+
+**Constat :**  
+Le conteneur passe directement à l'état `Exited (0)` sans rien afficher à l'écran.  
+**Pourquoi :**  
+Comme vu précédemment, la commande par défaut est `bash`. Sans les options interactives (`-i` et `-t`), `bash` ne dispose d'aucun terminal attaché ni d'entrée standard ouverte : il reçoit un signal EOF dès son lancement et s'arrête immédiatement.
+
+2. **Tentative de redémarrage en mode interactif :**
+```bash
+docker start -i <id_du_conteneur>
+```
+Le shell s'ouvre. En tapant `exit`, le conteneur s'arrête de nouveau.
+
+3. **Suppression du conteneur :**
+```bash
+docker rm <id_du_conteneur>
+```
