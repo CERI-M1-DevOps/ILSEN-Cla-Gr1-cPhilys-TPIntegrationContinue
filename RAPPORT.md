@@ -599,3 +599,21 @@ docker ps
 - **Nom :** `os_ubuntu`.
 - **Commande :** `"bash"`.
 - **Identifiant :** Les 12 premiers caractères de l'ID affiché correspondent exactement au nom d'hôte affiché par la commande `hostname` à l'intérieur du conteneur.
+
+### Déplacement et arrêt classique du conteneur
+
+1. Dans le premier terminal (dans le conteneur) :
+```bash
+cd /home
+exit
+```
+
+2. Observation du statut depuis l'hôte :
+```bash
+docker ps -a
+```
+
+**Constat :**  
+Le conteneur est désormais à l'état `Exited (0)`.  
+**Pourquoi :**  
+Le processus PID 1 était le shell `bash`. Lorsqu'on le quitte avec `exit`, le processus racine se termine, ce qui provoque immédiatement l'arrêt complet du conteneur.
