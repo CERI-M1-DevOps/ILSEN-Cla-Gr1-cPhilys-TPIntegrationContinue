@@ -923,3 +923,31 @@ docker history image_ubuntu_with_file
 docker run --rm image_ubuntu_with_file cat /home/nouveau_fichier.txt
 ```
 Le fichier existe bien avec son contenu. *(Note : il faut spécifier la commande à exécuter car l'import n'a pas conservé le `CMD` par défaut de l'image de base).*
+
+### Création d'image via docker commit
+
+1. **Commit du conteneur os_ubuntu :**
+```bash
+docker commit os_ubuntu image2
+```
+
+2. **Consultation de ses couches :**
+```bash
+docker history image2
+```
+
+**Constat et comparaison avec docker import :**  
+- Contrairement à `docker import` qui crée une couche monolithique plate, `docker commit` conserve l'ensemble des couches de l'image de départ (`ubuntu`) et n'ajoute qu'une seule nouvelle couche incrémentale correspondant aux modifications apportées (le nouveau fichier).
+- Les métadonnées d'origine (commande par défaut, variables d'environnement) sont préservées.
+
+3. **Création d'un conteneur à partir de image2 :**
+```bash
+docker run --rm image2 cat /home/nouveau_fichier.txt
+```
+
+4. **Nettoyage de fin de partie :**
+```bash
+docker rm -f os_ubuntu
+docker rmi image_ubuntu_with_file image2 python:3.9 python:3.14.0a1
+rm -f ubuntu_fs.tar
+```
