@@ -478,3 +478,17 @@ Docker Hub intègre l'analyseur de sécurité Docker Scout pour inspecter les im
 En consultant le détail des tags sur Docker Hub :
 - Pour `latest` et `noble` : l'historique et les hash des couches sont rigoureusement identiques à 100%.
 - En comparant `noble` avec `rolling` : les deux images divergent dès les premières couches du rootfs (fichiers de paquets et configuration initiale de la distribution), générant des identifiants de couches entièrement distincts.
+
+### Inspection du répertoire layerdb
+
+Commande :
+```bash
+sudo ls -l /var/lib/docker/image/overlay2/layerdb/sha256
+```
+
+**Explication :**  
+Ce répertoire constitue la base de données locale des métadonnées des couches Docker. Chaque sous-répertoire correspond au SHA256 d'une couche et contient des fichiers de suivi :
+- `cache-id` : référence vers le système de fichiers réel dans `/var/lib/docker/overlay2/`.
+- `diff` : identifiant du delta de la couche.
+- `size` : taille de la couche en octets.
+- `tar-split` : métadonnées pour reconstruire l'archive tar d'origine.
