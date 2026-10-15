@@ -576,3 +576,13 @@ docker run -it --name os_ubuntu ubuntu
 **Explication des options :**  
 - `-i` (`--interactive`) : maintient le flux d'entrée standard (stdin) du conteneur ouvert même en l'absence de saisie immédiate.
 - `-t` (`--tty`) : alloue un pseudo-terminal (TTY), ce qui permet d'obtenir une invite de commande interactive (prompt bash avec coloration et gestion des raccourcis clavier).
+
+### Commandes de base dans le conteneur os_ubuntu
+
+Une fois dans le conteneur :
+- **Processus de PID 1 :** `/bin/bash`.
+- **Exécution des commandes :**
+  - `whoami` : renvoie `root` (utilisateur par défaut du conteneur).
+  - `pwd` : renvoie `/` (répertoire racine initial).
+  - `ls` : liste l'arborescence racine Linux standard (`bin`, `etc`, `home`, `proc`, `sys`, `usr`...).
+  - `hostname` : renvoie un nom d'hôte de 12 caractères hexadécimaux (par ex. `a1b2c3d4e5f6`), qui correspond aux 12 premiers caractères du `CONTAINER ID`.
