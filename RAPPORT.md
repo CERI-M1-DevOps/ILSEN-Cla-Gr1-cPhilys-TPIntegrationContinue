@@ -517,3 +517,13 @@ docker images --filter "reference=ubuntu*"
 
 **Constat :**  
 La commande ne liste que les images dont le nom de dépôt correspond au motif `ubuntu*` (ici `ubuntu:latest` et `ubuntu:rolling`), masquant les autres images présentes sur la machine.
+
+### Commande par défaut de l'image ubuntu
+
+Commande d'inspection :
+```bash
+docker inspect ubuntu --format '{{.Config.Cmd}}'
+```
+
+**Résultat :** `[bash]` (ou `[/bin/bash]`).  
+L'image Ubuntu est configurée pour exécuter le shell bash par défaut lors du démarrage d'un conteneur si aucune commande n'est passée en argument.
