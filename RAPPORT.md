@@ -847,3 +847,25 @@ docker container prune -f
 ```bash
 docker rm -f $(docker ps -aq)
 ```
+
+---
+
+## Partie 6 – Inspection et manipulation d’images
+
+### Téléchargement de python:3.9 et historique des couches
+
+1. **Téléchargement de l'image :**
+```bash
+docker pull python:3.9
+```
+Le terminal affiche le téléchargement de 8 à 10 couches successives ("Pull complete").
+
+2. **Observation des couches de l'image :**
+```bash
+docker history python:3.9
+```
+*(On peut utiliser `docker history --no-trunc python:3.9` pour voir l'intégralité des commandes de build sans troncature).*
+
+3. **Dernière couche de l'image :**  
+La première ligne retournée par `docker history` (le sommet de la pile de couches) correspond à la directive finale :
+`CMD ["python3"]`
