@@ -869,3 +869,15 @@ docker history python:3.9
 3. **Dernière couche de l'image :**  
 La première ligne retournée par `docker history` (le sommet de la pile de couches) correspond à la directive finale :
 `CMD ["python3"]`
+
+### Téléchargement de python:3.14.0a1 et réutilisation du cache
+
+Commande :
+```bash
+docker pull python:3.14.0a1
+```
+
+**Constat :**  
+Pour plusieurs couches, Docker n'effectue aucun téléchargement et indique `Already exists`. Seules les couches supérieures sont téléchargées.  
+**Pourquoi :**  
+Les deux images `python:3.9` et `python:3.14.0a1` sont basées sur le même système d'exploitation sous-jacent (Debian Bookworm). Docker mutualise les couches communes déjà présentes dans son stockage local, ce qui réduit le temps de transfert et l'espace disque consommé.
