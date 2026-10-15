@@ -810,3 +810,28 @@ docker ps -a
 ```
 **Constat :**  
 La colonne `STATUS` indique `Exited (42)`. Docker stocke et préserve fidèlement le code d'erreur retourné par le processus.
+
+### Consultation des logs du conteneur
+
+1. **Via la commande Docker :**
+```bash
+docker logs os_ubuntu
+```
+Affiche tout l'historique des sorties stdout et stderr du conteneur.
+
+2. **Localisation du fichier journal sur l'hôte :**
+```bash
+docker inspect os_ubuntu --format '{{.LogPath}}'
+```
+Le fichier se trouve sous :  
+`/var/lib/docker/containers/<id_complet>/<id_complet>-json.log`
+
+3. **Consultation du fichier avec jq :**
+```bash
+sudo cat $(docker inspect os_ubuntu --format '{{.LogPath}}') | jq .
+```
+**Constat :**  
+Chaque ligne est un objet JSON structuré comprenant :
+- `"log"` : le contenu du message émis.
+- `"stream"` : le canal de sortie (`stdout` ou `stderr`).
+- `"time"` : l'horodatage UTC précis de l'émission du log.
