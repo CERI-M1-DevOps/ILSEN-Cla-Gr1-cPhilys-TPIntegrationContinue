@@ -951,3 +951,41 @@ docker rm -f os_ubuntu
 docker rmi image_ubuntu_with_file image2 python:3.9 python:3.14.0a1
 rm -f ubuntu_fs.tar
 ```
+
+---
+
+## Partie 7 – Quelques informations générales
+
+### Surveillance de la consommation des conteneurs
+
+Commande pour inspecter les métriques en direct :
+```bash
+docker stats --no-stream
+```
+
+**Explication :**  
+Cette commande affiche un tableau de suivi des performances pour chaque conteneur actif :
+- `% CPU` : pourcentage de processeur alloué et consommé.
+- `MEM USAGE / LIMIT` & `MEM %` : empreinte mémoire vive par rapport à la limite autorisée.
+- `NET I/O` : volume de données reçues / émises sur les interfaces réseau.
+- `BLOCK I/O` : volume de lectures / écritures effectuées sur le disque.
+- `PIDS` : nombre de threads et processus exécutés à l'intérieur du conteneur.
+*(L'option `--no-stream` fige la mesure à l'instant T au lieu de rafraîchir en continu).*
+
+### Consommation disque des objets Docker
+
+1. **Synthèse globale de l'espace disque :**
+```bash
+docker system df
+```
+Affiche un tableau récapitulatif par type d'objet :
+- `Images` : nombre total d'images, nombre d'images actives, taille totale et volume récupérable (*Reclaimable*).
+- `Containers` : espace disque occupé par les couches d'écriture des conteneurs.
+- `Local Volumes` : espace occupé par les volumes de persistance.
+- `Build Cache` : taille du cache des builds intermédiaires BuildKit.
+
+2. **Détail complet objet par objet :**
+```bash
+docker system df -v
+```
+L'option `-v` (`--verbose`) détaille chaque image individuelle, chaque conteneur et chaque volume avec son identifiant, son statut actif ou inactif et son empreinte disque précise.
