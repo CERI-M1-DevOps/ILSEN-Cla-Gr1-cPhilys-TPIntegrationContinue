@@ -651,3 +651,15 @@ docker inspect os_ubuntu | jq '.[0].State.Pid'
 ```
 
 La commande renvoie le numéro de PID du processus sur la machine hôte (par exemple `45123`).
+
+### Identification du processus sur la machine hôte
+
+Commande sur l'hôte avec le PID obtenu :
+```bash
+ps u -p 45123
+```
+
+**Constat :**  
+On retrouve le processus `/bin/bash` exécuté sur la machine hôte.  
+**Pourquoi :**  
+Un conteneur n'est pas une machine virtuelle : il ne virtualise aucun matériel et ne possède pas son propre noyau. Il s'agit d'un simple processus Linux standard de l'hôte, isolé dans ses propres namespaces (PID, réseau, montage) et restreint par les cgroups. Vu depuis l'intérieur du conteneur, ce bash porte le PID 1, mais vu depuis la machine hôte, il porte un PID ordinaire.
