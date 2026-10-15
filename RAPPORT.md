@@ -457,3 +457,13 @@ Les différentes versions proposées sont identifiées par des **tags** :
 - **Version la plus récente :** Ubuntu publie des versions tous les 6 mois (ex. `ubuntu:rolling` qui correspond à la dernière version semestrielle non-LTS avec 9 mois de support).
 - **Version `latest` :** Docker fait pointer le tag `latest` vers la dernière version **LTS** (Long Term Support) stabilisée, actuellement Ubuntu 24.04 LTS (`noble`), recommandée en production.
 - **Identifiants respectifs :** `ubuntu:latest` et `ubuntu:noble` partagent exactement le même digest SHA256 et le même Image ID, tandis que `ubuntu:rolling` pointe vers une image distincte avec son propre condensat SHA256.
+
+### Analyse et classification des vulnérabilités
+
+Docker Hub intègre l'analyseur de sécurité Docker Scout pour inspecter les images :
+- **Constat :** Les versions de type `rolling` ou `devel` intègrent des paquets très récents pouvant comporter des vulnérabilités nouvellement signalées non encore corrigées. À l'inverse, les images basées sur les versions LTS (`latest`/`noble`) bénéficient de correctifs de sécurité réguliers et d'une base logicielle plus stable.
+- **Classement des vulnérabilités :** Les vulnérabilités (CVE) sont hiérarchisées selon leur score de gravité CVSS :
+  - **Critical (Critique) :** exploitation à distance triviale avec impact majeur.
+  - **High (Élevée) :** risque sérieux nécessitant un correctif rapide.
+  - **Medium (Moyenne) :** impact modéré ou conditions d'exploitation spécifiques.
+  - **Low (Faible) :** impact minime ou théorique.
