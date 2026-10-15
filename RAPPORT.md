@@ -472,3 +472,9 @@ Docker Hub intègre l'analyseur de sécurité Docker Scout pour inspecter les im
 
 - **Constat :** Les tags `latest` et `noble` pointent sur le même condensat d'image.
 - **Intérêt :** En pratique DevOps, il est déconseillé d'utiliser le tag mutable `latest` dans les Dockerfiles de production. Référencer explicitement `ubuntu:noble` (ou `ubuntu:24.04`) garantit que les déploiements futurs resteront sur la version 24.04, évitant les régressions le jour où `latest` basculera vers la version LTS suivante (26.04).
+
+### Consultation des couches (layers) sur Docker Hub
+
+En consultant le détail des tags sur Docker Hub :
+- Pour `latest` et `noble` : l'historique et les hash des couches sont rigoureusement identiques à 100%.
+- En comparant `noble` avec `rolling` : les deux images divergent dès les premières couches du rootfs (fichiers de paquets et configuration initiale de la distribution), générant des identifiants de couches entièrement distincts.
