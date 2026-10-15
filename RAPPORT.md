@@ -630,3 +630,24 @@ pwd
 Le répertoire courant est `/` (la racine) et non `/home`.  
 **Pourquoi :**  
 Chaque démarrage du conteneur instancie un nouveau processus `bash` à partir de la configuration de l'image, qui définit le répertoire de travail initial (`WORKDIR /`). L'état volatile du shell précédent (`cd /home`) n'est pas sauvegardé dans le processus.
+
+### Inspection du conteneur et extraction du PID
+
+Dans le second terminal :
+1. **Inspection complète :**
+```bash
+docker inspect os_ubuntu
+```
+La section `State` indique `"Running": true`.
+
+2. **Extraction directe du PID avec formatage Go template :**
+```bash
+docker inspect os_ubuntu --format '{{.State.Pid}}'
+```
+
+3. **Extraction avec jq :**
+```bash
+docker inspect os_ubuntu | jq '.[0].State.Pid'
+```
+
+La commande renvoie le numéro de PID du processus sur la machine hôte (par exemple `45123`).
