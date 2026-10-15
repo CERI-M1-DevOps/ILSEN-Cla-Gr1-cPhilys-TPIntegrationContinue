@@ -565,3 +565,14 @@ Le shell s'ouvre. En tapant `exit`, le conteneur s'arrête de nouveau.
 ```bash
 docker rm <id_du_conteneur>
 ```
+
+### Lancement d'un conteneur interactif nommé os_ubuntu
+
+Commande :
+```bash
+docker run -it --name os_ubuntu ubuntu
+```
+
+**Explication des options :**  
+- `-i` (`--interactive`) : maintient le flux d'entrée standard (stdin) du conteneur ouvert même en l'absence de saisie immédiate.
+- `-t` (`--tty`) : alloue un pseudo-terminal (TTY), ce qui permet d'obtenir une invite de commande interactive (prompt bash avec coloration et gestion des raccourcis clavier).
