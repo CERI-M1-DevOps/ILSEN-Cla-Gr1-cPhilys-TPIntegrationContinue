@@ -441,3 +441,13 @@ Sur Docker Hub (https://hub.docker.com/), on trouve plusieurs catégories d'imag
 - **Community Images :** images publiques déposées par n'importe quel utilisateur ou organisation (sous la forme `utilisateur/depot`).
 
 La classification s'effectue via des filtres par catégorie (systèmes d'exploitation, bases de données, outils devops), par architecture matérielle (`amd64`, `arm64`), par niveau de confiance (badges officiel / vérifié) et par tags de version.
+
+### Image officielle Ubuntu et gestion des versions
+
+L'image officielle est accessible sous le nom `ubuntu` (ou `library/ubuntu`).
+
+Les différentes versions proposées sont identifiées par des **tags** :
+- Numéros de version : `24.04`, `22.04`, `20.04`.
+- Noms de code de distribution : `noble`, `jammy`, `focal`.
+- Révisions datées précises pour la reproductibilité : `noble-20240904`.
+- Variantes spécifiques : `rolling` (dernière version intermédiaire publiée) ou `devel` (version en cours de développement).
