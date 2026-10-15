@@ -502,3 +502,18 @@ docker pull ubuntu
 
 **Constat :**  
 Docker applique automatiquement le tag par défaut `:latest`. La commande télécharge donc `ubuntu:latest` (qui correspond à la version LTS Ubuntu 24.04).
+
+### Téléchargement de la version la plus récente et filtrage
+
+1. **Téléchargement de la version rolling :**
+```bash
+docker pull ubuntu:rolling
+```
+
+2. **Affichage des images locales avec filtre de référence :**
+```bash
+docker images --filter "reference=ubuntu*"
+```
+
+**Constat :**  
+La commande ne liste que les images dont le nom de dépôt correspond au motif `ubuntu*` (ici `ubuntu:latest` et `ubuntu:rolling`), masquant les autres images présentes sur la machine.
