@@ -681,3 +681,20 @@ docker ps
 Le statut reste `Up`. Le conteneur continue de tourner.  
 **Pourquoi :**  
 La séquence `Ctrl-p Ctrl-q` détache le terminal du conteneur sans envoyer de signal d'arrêt (SIGHUP ou SIGTERM) et sans clore le flux d'entrée. Le processus `bash` (PID 1) reste donc actif en tâche de fond.
+
+### Réattachement et modification du conteneur
+
+1. **Rattacher le terminal au conteneur :**
+```bash
+docker attach os_ubuntu
+pwd
+```
+
+**Constat :**  
+Le répertoire courant est toujours `/home`. Comme le processus ne s'est jamais arrêté, nous retrouvons exactement la même session shell intacte.
+
+2. **Création d'un fichier de test :**
+```bash
+echo "TP DevOps Docker" > monfichier.txt
+ls -l
+```
