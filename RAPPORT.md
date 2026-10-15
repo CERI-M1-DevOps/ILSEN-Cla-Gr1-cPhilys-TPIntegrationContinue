@@ -711,3 +711,22 @@ Docker liste les deltas appliqués sur la couche d'écriture (Copy-on-Write) :
 - `C /home` : le répertoire a été modifié (*Changed*).
 - `A /home/monfichier.txt` : le fichier a été ajouté (*Added*).
 - `C /root` et `A /root/.bash_history` : trace de l'historique bash.
+
+### Exécution de commandes avec docker exec
+
+1. **Exécution d'une commande sans passer en avant-plan :**
+```bash
+docker exec os_ubuntu hostname
+```
+La commande retourne le nom d'hôte du conteneur directement dans le terminal de l'hôte, sans interférer avec la session principale.
+
+2. **Exécution d'un second shell interactif :**
+```bash
+docker exec -it os_ubuntu bash
+```
+
+3. **Vérification du nombre de processus bash :**
+```bash
+ps -ef | grep bash
+```
+**Constat :** Il y a **2 processus bash** qui tournent simultanément dans le conteneur : le premier PID 1 initial, et le nouveau lancé par `docker exec`.
