@@ -698,3 +698,16 @@ Le répertoire courant est toujours `/home`. Comme le processus ne s'est jamais 
 echo "TP DevOps Docker" > monfichier.txt
 ls -l
 ```
+
+### Détection des modifications avec docker diff
+
+Après détachement (`Ctrl-p Ctrl-q`), vérification depuis l'hôte :
+```bash
+docker diff os_ubuntu
+```
+
+**Constat :**  
+Docker liste les deltas appliqués sur la couche d'écriture (Copy-on-Write) :
+- `C /home` : le répertoire a été modifié (*Changed*).
+- `A /home/monfichier.txt` : le fichier a été ajouté (*Added*).
+- `C /root` et `A /root/.bash_history` : trace de l'historique bash.
