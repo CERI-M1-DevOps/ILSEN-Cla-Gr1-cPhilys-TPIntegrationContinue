@@ -892,3 +892,34 @@ docker inspect python:3.14.0a1 | jq '.[0].RootFS.Layers'
 
 **Constat :**  
 Les premiers hash SHA256 des listes `RootFS.Layers` sont strictement identiques entre les deux images. Cela confirme techniquement le partage effectif des couches de base Debian sur le système de fichiers hôte.
+
+### Export de conteneur et création d'image via docker import
+
+1. **Création d'un conteneur avec un nouveau fichier :**
+```bash
+docker run -d --name os_ubuntu ubuntu sleep 3600
+docker exec os_ubuntu sh -c "echo 'contenu personnalise' > /home/nouveau_fichier.txt"
+```
+
+2. **Export du système de fichiers en archive tar :**
+```bash
+docker export os_ubuntu -o ubuntu_fs.tar
+```
+
+3. **Import de l'archive en nouvelle image :**
+```bash
+docker import ubuntu_fs.tar image_ubuntu_with_file
+```
+- **Tag attribué :** Comme aucun tag n'est spécifié, Docker lui attribue automatiquement le tag `latest` (`image_ubuntu_with_file:latest`).
+- **Observation des couches :**
+```bash
+docker history image_ubuntu_with_file
+```
+**Constat :** L'image importée ne comporte qu'**une seule couche unique** (1 layer).  
+**Pourquoi :** La commande `docker export` aplatit (*flattens*) l'arborescence complète du système de fichiers sans conserver l'historique des commits ni les métadonnées de construction d'origine.
+
+4. **Vérification du fichier :**
+```bash
+docker run --rm image_ubuntu_with_file cat /home/nouveau_fichier.txt
+```
+Le fichier existe bien avec son contenu. *(Note : il faut spécifier la commande à exécuter car l'import n'a pas conservé le `CMD` par défaut de l'image de base).*
