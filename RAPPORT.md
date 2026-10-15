@@ -586,3 +586,16 @@ Une fois dans le conteneur :
   - `pwd` : renvoie `/` (répertoire racine initial).
   - `ls` : liste l'arborescence racine Linux standard (`bin`, `etc`, `home`, `proc`, `sys`, `usr`...).
   - `hostname` : renvoie un nom d'hôte de 12 caractères hexadécimaux (par ex. `a1b2c3d4e5f6`), qui correspond aux 12 premiers caractères du `CONTAINER ID`.
+
+### Observation du conteneur depuis un second terminal
+
+Depuis un second terminal connecté à la machine virtuelle :
+```bash
+docker ps
+```
+
+**Constat :**  
+- **Statut :** `Up X minutes`.
+- **Nom :** `os_ubuntu`.
+- **Commande :** `"bash"`.
+- **Identifiant :** Les 12 premiers caractères de l'ID affiché correspondent exactement au nom d'hôte affiché par la commande `hostname` à l'intérieur du conteneur.
